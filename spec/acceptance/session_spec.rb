@@ -44,7 +44,7 @@ feature 'Use an encrypted session' do
 
     expect(last_response.status).to eq 200
 
-    expect(decryptor.decrypt_and_verify response_cookies['_session_id']).to include('session_test' => 'session_test_value')
+    expect(decryptor.decrypt_and_verify response_cookies['_grape_session_id']).to include('session_test' => 'session_test_value')
   end
 
   scenario 'Get session' do

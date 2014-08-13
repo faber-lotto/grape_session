@@ -10,7 +10,7 @@ module GrapeSession
 
         use GrapeSession::Middleware::EnvSetup
         use ActionDispatch::Cookies
-        use ActionDispatch::Session::CookieStore
+        use ActionDispatch::Session::CookieStore, GrapeSession::Middleware::EnvSetup.settings[:session_options]
 
       end
 

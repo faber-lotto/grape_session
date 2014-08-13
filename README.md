@@ -40,6 +40,19 @@ class API < Grape::API
      secret_token: 'secret_token',
      secret_key_base: 'secret base',
      cookies_serializer: :json
+     
+     session_options: { 
+       # Rails specific ActionDispatch::Compatibility
+       key: '_grape_session_id' 
+       # Rack::Session::Abstract::ID specific
+       domain: 'foo.com',
+       path:  '/',
+       expire_after: 2592000,
+       secure: false,
+       httponly: true,
+       defer: false,
+       renew: false,
+     }
   }
   
   

@@ -8,14 +8,19 @@ module GrapeSession
           encrypted_signed_cookie_salt: 'signed encrypted cookie',
           secret_token: 'secret_token',
           secret_key_base: 'secret base',
-          cookies_serializer: :json
+          cookies_serializer: :json,
+          session_options: { key: '_grape_session_id' }
         }.freeze
       end
 
-      def self.settings(new_settings)
-        @settings_for_env = nil
-        @caching_key_generator = nil
-        @settings = default_settings.merge new_settings
+      def self.settings(new_settings = nil)
+        if new_settings
+          @settings_for_env = nil
+          @caching_key_generator = nil
+          @settings = default_settings.merge new_settings
+        else
+          @settings ||= default_settings
+        end
       end
 
       def self.key_generator
@@ -26,16 +31,14 @@ module GrapeSession
       end
 
       def self.settings_for_env
-        @settings ||= default_settings
-
         @settings_for_env ||= {
           ActionDispatch::Cookies::GENERATOR_KEY => key_generator,
-          ActionDispatch::Cookies::SIGNED_COOKIE_SALT => @settings[:signed_cookie_salt],
-          ActionDispatch::Cookies::ENCRYPTED_COOKIE_SALT => @settings[:encrypted_cookie_salt],
-          ActionDispatch::Cookies::ENCRYPTED_SIGNED_COOKIE_SALT => @settings[:encrypted_signed_cookie_salt],
-          ActionDispatch::Cookies::SECRET_TOKEN => @settings[:secret_token],
-          ActionDispatch::Cookies::SECRET_KEY_BASE => @settings[:secret_key_base],
-          ActionDispatch::Cookies::COOKIES_SERIALIZER => @settings[:cookies_serializer]
+          ActionDispatch::Cookies::SIGNED_COOKIE_SALT => settings[:signed_cookie_salt],
+          ActionDispatch::Cookies::ENCRYPTED_COOKIE_SALT => settings[:encrypted_cookie_salt],
+          ActionDispatch::Cookies::ENCRYPTED_SIGNED_COOKIE_SALT => settings[:encrypted_signed_cookie_salt],
+          ActionDispatch::Cookies::SECRET_TOKEN => settings[:secret_token],
+          ActionDispatch::Cookies::SECRET_KEY_BASE => settings[:secret_key_base],
+          ActionDispatch::Cookies::COOKIES_SERIALIZER => settings[:cookies_serializer]
         }.freeze
       end
 
