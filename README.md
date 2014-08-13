@@ -44,8 +44,9 @@ class API < Grape::API
   
   
   get '/test' do
-     cookies.signed['test_signed'] = '1234'
+    cookies.signed['test_signed'] = '1234'
     cookies['test_unsigned_signed'] = 'unsigned_1234'
+    session['session_test'] = 'session_test_value'
   end
 
 end

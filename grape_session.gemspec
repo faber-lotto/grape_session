@@ -8,9 +8,9 @@ Gem::Specification.new do |spec|
   spec.version       = GrapeSession::VERSION
   spec.authors       = ['Dieter Späth']
   spec.email         = ['d.spaeth@faber.de']
-  spec.summary       = 'TODO: Write a short summary. Required.'
-  spec.description   = 'TODO: Write a longer description. Optional.'
-  spec.homepage      = ''
+  spec.summary       = 'Adds Rails like session and cookie support to grape api'
+  spec.description   = 'Adds Rails like session and cookie support to grape api'
+  spec.homepage      = 'https://github.com/faber-lotto/grape_session'
   spec.license       = 'MIT'
 
   spec.files         = `git ls-files -z`.split("\x0")
