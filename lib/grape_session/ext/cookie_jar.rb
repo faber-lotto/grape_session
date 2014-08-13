@@ -12,9 +12,6 @@ module GrapeSession
       def read(*)
       end
 
-      def write(*)
-      end
-
       module ClassMethods
       end
     end

@@ -18,4 +18,6 @@ Grape::Endpoint.send(:include, GrapeSession::Ext::Endpoint)
 Grape::Request.send(:include, GrapeSession::Ext::Request)
 # Grape::API.send(:include, GrapeSession::Ext::API)
 
-ActionDispatch::Cookies::CookieJar.send(:include, GrapeSession::Ext::CookieJar)
+unless ActionDispatch::Cookies::CookieJar.instance_methods.include? :read
+  ActionDispatch::Cookies::CookieJar.send(:include, GrapeSession::Ext::CookieJar)
+end
