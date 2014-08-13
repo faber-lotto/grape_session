@@ -1,4 +1,4 @@
-# GrapeSession
+# GrapeSession (Project-State: Proposal)
 
 Make Rails session and cookie handling available for grape. `cookies` method 
 will return an `ActionDispatch::Cookies::CookieJar` instead of `Grape::Cookie`.
