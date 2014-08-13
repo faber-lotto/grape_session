@@ -13,6 +13,10 @@ feature 'Use an encrypted session' do
       get '/test' do
         session['session_test'] = 'session_test_value'
       end
+
+      get '/return' do
+        { session: session.to_hash }
+      end
     end
   end
 
@@ -41,5 +45,13 @@ feature 'Use an encrypted session' do
     expect(last_response.status).to eq 200
 
     expect(decryptor.decrypt_and_verify response_cookies['_session_id']).to include('session_test' => 'session_test_value')
+  end
+
+  scenario 'Get session' do
+    get '/test'
+
+    get '/return'
+
+    expect(last_response.body).to include('"session_test"=>"session_test_value"')
   end
 end
