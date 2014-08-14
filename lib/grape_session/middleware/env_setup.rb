@@ -1,31 +1,33 @@
 module GrapeSession
   module Middleware
     class EnvSetup
-      def self.default_settings
-        {
-          signed_cookie_salt: 'signed cookie',
-          encrypted_cookie_salt: 'encrypted cookie',
-          encrypted_signed_cookie_salt: 'signed encrypted cookie',
-          secret_token: 'secret_token',
-          secret_key_base: 'secret base',
-          cookies_serializer: :json,
-          session_options: { key: '_grape_session_id' }
-        }.freeze
-      end
+      include GrapeSession::Configuration.module(
+                  :signed_cookie_salt,
+                  :encrypted_cookie_salt,
+                  :encrypted_signed_cookie_salt,
+                  :secret_token,
+                  :secret_key_base,
+                  :cookies_serializer,
+                  session_options: [:key, :domain, :path, :expire_after, :secure, :httponly, :defer, :renew]
+              )
 
-      def self.settings(new_settings = nil)
-        if new_settings
-          @settings_for_env = nil
-          @caching_key_generator = nil
-          @settings = default_settings.merge new_settings
-        else
-          @settings ||= default_settings
+      # setup defaults
+      configure do
+        signed_cookie_salt 'signed cookie'
+        encrypted_cookie_salt 'encrypted cookie'
+        encrypted_signed_cookie_salt 'signed encrypted cookie'
+        secret_token 'secret_token'
+        secret_key_base 'secret base'
+        cookies_serializer :json
+
+        session_options do
+          key '_grape_session_id'
         end
       end
 
       def self.key_generator
         @caching_key_generator ||= begin
-          key_generator = ActiveSupport::KeyGenerator.new(@settings[:secret_key_base], iterations: 1000)
+          key_generator = ActiveSupport::KeyGenerator.new(settings[:secret_key_base], iterations: 1000)
           ActiveSupport::CachingKeyGenerator.new(key_generator)
         end
       end

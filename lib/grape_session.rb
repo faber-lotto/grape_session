@@ -3,6 +3,8 @@ require 'grape_session/version'
 require 'active_support/concern'
 
 module GrapeSession
+  require 'grape_session/configuration'
+  require 'grape_session/dsl/configuration'
   require 'grape_session/middleware/env_setup'
   require 'grape_session/ext/endpoint'
   require 'grape_session/ext/request'

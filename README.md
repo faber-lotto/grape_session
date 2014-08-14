@@ -33,27 +33,27 @@ Or install it yourself as:
 class API < Grape::API
   include GrapeSession::Ext::API
 
-  GrapeSession::Middleware::EnvSetup.settings {
-     signed_cookie_salt: 'signed cookie',
-     encrypted_cookie_salt: 'encrypted cookie',
-     encrypted_signed_cookie_salt: 'signed encrypted cookie',
-     secret_token: 'secret_token',
-     secret_key_base: 'secret base',
-     cookies_serializer: :json
+  GrapeSession::Middleware::EnvSetup.configure do
+     signed_cookie_salt 'signed cookie'
+     encrypted_cookie_salt 'encrypted cookie'
+     encrypted_signed_cookie_salt 'signed encrypted cookie'
+     secret_token 'secret_token'
+     secret_key_base 'secret base'
+     cookies_serializer :json
      
-     session_options: { 
+     session_options do 
        # Rails specific ActionDispatch::Compatibility
-       key: '_grape_session_id' 
+       key '_grape_session_id' 
        # Rack::Session::Abstract::ID specific
-       domain: 'foo.com',
-       path:  '/',
-       expire_after: 2592000,
-       secure: false,
-       httponly: true,
-       defer: false,
-       renew: false,
-     }
-  }
+       domain 'foo.com'
+       path  '/'
+       expire_after 2592000
+       secure false
+       httponly true
+       defer false
+       renew false
+     end
+  end
   
   
   get '/test' do
