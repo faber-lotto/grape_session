@@ -50,6 +50,12 @@ feature 'Use an encrypted session' do
   scenario 'Get session' do
     get '/test'
 
+    memo_session = response_cookies['_grape_session_id']
+
+    clear_cookies
+
+    set_cookie "_grape_session_id=#{memo_session}"
+
     get '/return'
 
     expect(last_response.body).to include('"session_test"=>"session_test_value"')

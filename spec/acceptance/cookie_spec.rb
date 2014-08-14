@@ -55,6 +55,14 @@ feature 'Encrypt a cookie session' do
   scenario 'Get signed cookie' do
     get '/test'
 
+    memo_unsigned = response_cookies['test_unsigned_signed']
+    memo_signed = response_cookies['test_signed']
+
+    clear_cookies
+
+    set_cookie "test_unsigned_signed=#{memo_unsigned}"
+    set_cookie "test_signed=#{memo_signed}"
+
     get '/return'
 
     expect(last_response.body).to eq '{:cookies=>["1234", "unsigned_1234"]}'
