@@ -8,8 +8,8 @@ Gem::Specification.new do |spec|
   spec.version       = GrapeSession::VERSION
   spec.authors       = ['Dieter Späth']
   spec.email         = ['d.spaeth@faber.de']
-  spec.summary       = 'Adds Rails like session and cookie support to grape api'
-  spec.description   = 'Adds Rails like session and cookie support to grape api'
+  spec.summary       = 'Adds Rails like session support to grape api'
+  spec.description   = 'Adds Rails like session support to grape api'
   spec.homepage      = 'https://github.com/faber-lotto/grape_session'
   spec.license       = 'MIT'
 
@@ -24,6 +24,7 @@ Gem::Specification.new do |spec|
   spec.add_runtime_dependency 'rack-accept'
   spec.add_runtime_dependency 'activesupport', '>=4.1.0'
   spec.add_runtime_dependency 'actionpack', '>=4.1.0'
+  spec.add_runtime_dependency 'grape_cookies'
 
   spec.add_development_dependency 'grape'
 

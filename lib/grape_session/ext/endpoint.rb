@@ -6,10 +6,6 @@ module GrapeSession
       included do
       end
 
-      def cookies
-        request.cookie_jar
-      end
-
       def session
         request.session
       end

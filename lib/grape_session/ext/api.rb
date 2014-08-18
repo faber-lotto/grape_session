@@ -6,11 +6,11 @@ module GrapeSession
     module API
       extend ActiveSupport::Concern
 
+      include GrapeCookies::Ext::API
+
       included do
 
-        use GrapeSession::Middleware::EnvSetup
-        use ActionDispatch::Cookies
-        use ActionDispatch::Session::CookieStore, GrapeSession::Middleware::EnvSetup.settings[:session_options]
+        use ActionDispatch::Session::CookieStore, GrapeSession::Configuration.settings.dup
 
       end
 
